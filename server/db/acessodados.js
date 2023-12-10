@@ -10,6 +10,7 @@ module.exports = class AcessoDados {
             var retorno;
             var connection = mysql.createConnection(global.config.database);
 
+            // percorre os parametros
             if (parametros && parametros != undefined) {
 
                 let p = parametros;
