@@ -24,14 +24,14 @@ login.method = {
         let senha = document.querySelector("#txtSenhaLogin").value.trim();
 
         if(email.length == 0) {
-            alert("informe o E-mail, por favor.");
+            app.method.mensagem("informe o E-mail, por favor.");
             document.querySelector("#txtEmailLogin").focus();
             return;
         }
 
         if(senha.length == 0) {
-            alert("informe a Senha, por favor.");
-            document.querySelector("#txtsenhaLogin").focus();
+            app.method.mensagem("informe a Senha, por favor.");
+            document.querySelector("#txtSenhaLogin").focus();
             return;
         }
 
