@@ -5,6 +5,8 @@ const readCommandSql = new ReadCommandSql();
 const UsuarioAcessoToken = require('../common/protecaoAcesso');
 const Acesso = new UsuarioAcessoToken();
 
+const crypto = require('crypto');
+
 const controllers = () => {
 
     const login = async (req) => {
@@ -19,8 +21,19 @@ const controllers = () => {
             // existe usuario no banco
 
             // Validar se as senhas são iguais
+            var hashSenha = crypto.createHmac('sha256', password).digest('hex');
 
-             // Se estiver tudo ok, gera o token e retorna o JSON
+            console.log('Senha do usuário: ', hashSenha);
+            console.log('Senha no Banco: ', usuarioBanco[0].senha);
+
+            if(hashSenha.toLocaleLowerCase() != usuarioBanco[0].senha.toLocaleLowerCase()){
+                return{
+                status: 'error',
+                message: "Usuário ou senha incorretos" //senha incorreta
+                }
+            }
+
+            // Se estiver tudo ok, gera o token e retorna o JSON
 
         }
 

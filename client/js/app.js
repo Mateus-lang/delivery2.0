@@ -7,11 +7,11 @@ app.event = {
 
 app.method = {
 
-    // centraliza as chamadas de get
+    // centraliza as chamadas de GET
     get: (url, callbackSuccess, callbackError, login = false) => {
 
         try {
-            
+
             if (app.method.validaToken(login)) {
 
                 let xhr = new XMLHttpRequest();
@@ -20,20 +20,21 @@ app.method = {
                 xhr.setRequestHeader("Authorization", app.method.obterValorStorage('token'));
 
                 xhr.onreadystatechange = function () {
-
+                    
                     if (this.readyState == 4) {
 
-                        if (this.status == 200){
+                        if (this.status == 200) {
                             return callbackSuccess(JSON.parse(xhr.responseText))
                         }
                         else {
 
-                            // se o retorno for não autorizado, redireciona para a tela de login
-                            if(xhr.status == 401) {
+                            // se o retorno for não autorizado, redireciona o usuário para o login
+                            if (xhr.status == 401) {
                                 app.method.logout();
                             }
 
                             return callbackError(xhr.responseText);
+
                         }
 
                     }
@@ -43,16 +44,18 @@ app.method = {
                 xhr.send();
 
             }
-
+            
         } catch (error) {
             return callbackError(error)
         }
+
     },
 
-    // centraliza as chamadas de post
-    post: (url,dados, callbackSuccess, callbackError, login = false) => {
+    // centraliza as chamadas de POST
+    post: (url, dados, callbackSuccess, callbackError, login = false) => {
+
         try {
-            
+
             if (app.method.validaToken(login)) {
 
                 let xhr = new XMLHttpRequest();
@@ -61,20 +64,21 @@ app.method = {
                 xhr.setRequestHeader("Authorization", app.method.obterValorStorage('token'));
 
                 xhr.onreadystatechange = function () {
-
+                    
                     if (this.readyState == 4) {
 
-                        if (this.status == 200){
+                        if (this.status == 200) {
                             return callbackSuccess(JSON.parse(xhr.responseText))
                         }
                         else {
 
-                            // se o retorno for não autorizado, redireciona para a tela de login
-                            if(xhr.status == 401) {
+                            // se o retorno for não autorizado, redireciona o usuário para o login
+                            if (xhr.status == 401) {
                                 app.method.logout();
                             }
 
                             return callbackError(xhr.responseText);
+
                         }
 
                     }
@@ -84,19 +88,19 @@ app.method = {
                 xhr.send(dados);
 
             }
-
+            
         } catch (error) {
             return callbackError(error)
         }
+
     },
 
-
-    // Método para validar se o token existe (local). É chamado em todas as requisições
+    // método para validar se o token existe (local). É chamado em todas as requisições
     validaToken: (login = false) => {
 
         var tokenAtual = app.method.obterValorStorage('token');
 
-        if ((tokenAtual == undefined || tokenAtual == null || tokenAtual == "" || tokenAtual == "null") && !login){
+        if ((tokenAtual == undefined || tokenAtual == null || tokenAtual == "" || tokenAtual == "null") && !login) {
             window.location.href = '/painel/login.html';
             return false;
         }
@@ -105,18 +109,18 @@ app.method = {
 
     },
 
-    // Grava o valor do local storage
-    gravarValorStorage: (valor, local) =>{
-        localStorage(local) = valor;
+    // grava valores no localstorage
+    gravarValorStorage: (valor, local) => {
+        localStorage[local] = valor;
     },
 
-    // Obtem o valor do local storage
-    obterValorStorage: (local) =>{
+    // obtem um valor do localstorage
+    obterValorStorage: (local) => {
         return localStorage[local];
     },
 
-    // metodo que limpa todo o localstorage e redireciona para o login
-    logout: () => {
+    // método que limpa todo o localstorage e redireciona pro login
+    logout: () =>{
         localStorage.clear();
         window.location.href = '/painel/login.html';
     },
@@ -126,19 +130,19 @@ app.method = {
 
         let container = document.querySelector('#container-mensagens');
 
-        if(container.childElementCount > 2) {
+        if (container.childElementCount > 2) {
             return;
-        };
+        }
 
         let id = Math.floor(Date.now() * Math.random()).toString();
 
-        let msg = `<div id="msg-${id}" class="toast ${cor}"> ${texto} </div>`;
+        let msg = `<div id="msg-${id}" class="toast ${cor}">${texto}</div>`;
 
         container.innerHTML += msg;
 
-        setTimeout (() => {
+        setTimeout(() => {
             document.querySelector(`#msg-${id}`).remove();
-        }, tempo);
+        }, tempo)
 
     },
 

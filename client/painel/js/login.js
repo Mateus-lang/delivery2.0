@@ -43,15 +43,24 @@ login.method = {
     login: (email, senha) => {
         var dados = {
             email: email,
-            senha: senha
+            senha: senha,
         }
+        
+        console.log("Enviando dados para o servidor:", dados);
 
         app.method.post('/login', JSON.stringify(dados),
             (response) => {
-                console.log(response);
+                
+                console.log("Resposta do servidor:", response);
+
+                if (response.status == 'error') {
+                    app.method.mensagem(response.message);
+                    return;
+                }
+
             },
             (error) => {
-                console.log(error);
+                console.log("Erro na solicitação:", error);
             }, true
         )
 
