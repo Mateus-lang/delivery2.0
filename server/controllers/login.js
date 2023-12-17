@@ -34,6 +34,16 @@ const controllers = () => {
             }
 
             // Se estiver tudo ok, gera o token e retorna o JSON
+            var tokenAcesso = Acesso.gerarTokenAcesso(usuarioBanco[0])
+
+            return{
+                status: 'success',
+                TokenAcesso: tokenAcesso,
+                Nome: usuarioBanco[0].nome,
+                Email: usuarioBanco[0].email,
+                Logo: usuarioBanco[0].logotipo
+            }
+
 
         }
 

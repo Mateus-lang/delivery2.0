@@ -58,6 +58,17 @@ login.method = {
                     return;
                 }
 
+                if (response.status == "success") {
+
+                    app.method.gravarValorStorage(response.TokenAcesso, "token");
+                    app.method.gravarValorStorage(response.Nome, "Nome");
+                    app.method.gravarValorStorage(response.Email, "Email");
+                    app.method.gravarValorStorage(response.Logo, "Logo");
+
+                    window.location.href = "/painel/home.html";
+                    
+                }
+
             },
             (error) => {
                 console.log("Erro na solicitação:", error);
