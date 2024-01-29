@@ -8,7 +8,7 @@ var UsuarioAcessoToken = new SchemaObject({tokenAcesso: String},
 
                 try {
                     
-                    return jwt.sign({'Email': dados.email, 'IdEmpresa': dados.idempresa, 'Nome': dados.nome}, 'Token', { expiresIn: 86400000})
+                    return jwt.sign({'Email': dados.email, 'IdEmpresa': dados.idempresa, 'Nome': dados.nome}, 'Token', { expiresIn: '1d'})
 
                 } catch (error) {
                     console.log(error);

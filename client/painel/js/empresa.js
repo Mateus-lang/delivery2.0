@@ -85,6 +85,10 @@ empresa.method = {
                     document.getElementById("btn-remover-logo").classList.add('hidden');
                 }
 
+                document.getElementById("txtNomeEmpresa").value = empresa.nome;
+                document.getElementById("txtSobreEmpresa").innerHTML = empresa.sobre.replace(/\n/g, '\r\n');
+
+
                 // carrega a TAB endereço
 
             },
