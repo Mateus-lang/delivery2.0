@@ -146,6 +146,17 @@ app.method = {
 
     },
 
+    // metodo que exibe o loader
+    loading: (running = false) => {
+        
+        if(running) {
+            document.querySelector(".loader-full").classList.remove('hidden');
+        }else {
+            document.querySelector(".loader-full").classList.add('hidden');
+        }
+
+    },
+
     // carrega os dados da empresa
     carregarDadosEmpresa: () => {
 

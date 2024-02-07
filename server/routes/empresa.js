@@ -8,4 +8,11 @@ module.exports = (server) => {
         res.send(result);
     })
 
+
+    // salva todas as informações da empresa na pagina "Sobre"
+    server.post('/empresa/sobre', async (req, res) => {
+        const result = await ct.controllers().salvarDadosSobre(req);
+        res.send(result);
+    })
+
 }

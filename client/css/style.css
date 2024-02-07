@@ -41,6 +41,19 @@ b {
     display: none !important;
 }
 
+.loader-full{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 9999;
+    background-color: rgb(255 253 247 / 95%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .pr-0{
     padding-right: 0px!important;
 }

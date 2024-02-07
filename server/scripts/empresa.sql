@@ -15,3 +15,14 @@ FROM
     empresa 
 
 --END#obterDadosCompletos#
+
+--INIT#salvarDadosSobre#
+
+UPDATE
+    empresa
+SET
+    nome = @nome,
+    sobre = @sobre
+WHERE
+    idempresa = @idempresa
+--END#salvarDadosSobre#

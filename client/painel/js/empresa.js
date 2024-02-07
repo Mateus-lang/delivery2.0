@@ -101,6 +101,56 @@ empresa.method = {
 
     },
 
+    //Valida os campos e salva os dados da empresa (TAB sobre)
+    salvarDadosSobre: () => {
+        let nome = document.getElementById("txtNomeEmpresa").value.trim();
+        let sobre = document.getElementById("txtSobreEmpresa").value.trim();
+
+        if( nome.length <= 0){
+            app.method.mensagem('Informe o nome da empresa, por favor.');
+            document.getElementById("txtNomeEmpresa").focus();
+            return;
+        }
+
+        let dados = {
+            nome: nome,
+            sobre: sobre
+        }
+
+        app.method.loading(true);
+
+        app.method.post('/empresa/sobre', JSON.stringify(dados),
+            (response) => {
+
+                console.log('response', response)
+                app.method.loading(false);
+
+                if(response.status === 'error') {
+                    app.method.mensagem(response.message)
+                    return;
+
+                }
+
+                app.method.mensagem(response.message,'green');
+
+                // atualizar o localstorage
+
+                app.method.gravarValorStorage(nome, 'Nome');
+
+                empresa.method.obterDados();
+                app.method.carregarDadosEmpresa();
+
+            },
+            (error) => {
+
+                console.log('error', error);
+                app.method.loading(false);
+
+            }
+        );
+
+    },
+
     obterHorarios: () => {
 
     }

@@ -41,7 +41,7 @@ var UsuarioAcessoToken = new SchemaObject({tokenAcesso: String},
                 var headerTokenAcesso = req.headers["authorization"];
                 var decoded = jwt.decode(headerTokenAcesso, {complete: true});
 
-                if (valor === "Idempresa") {
+                if (valor === "IdEmpresa") {
                     return decoded.payload.IdEmpresa;
                 }
 
