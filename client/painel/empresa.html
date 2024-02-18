@@ -113,11 +113,11 @@
                                 <div class="logo-empresa">
                                     <div id="img-empresa" class="container-img-sobre">
 
-                                        <a id="btn-editar-logo" href="#" class="icon-action me-1 mb-1 hidden" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
+                                        <a id="btn-editar-logo" onclick="empresa.method.openModalLogo()" href="#" class="icon-action me-1 mb-1 hidden" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
 
-                                        <a id="btn-remover-logo" href="#" class="icon-action me-1 mb-1 hidden" data-bs-toggle="tooltip" data-bs-placement="top" title="Remover">
+                                        <a id="btn-remover-logo" onclick="empresa.method.removeLogo()" href="#" class="icon-action me-1 mb-1 hidden" data-bs-toggle="tooltip" data-bs-placement="top" title="Remover">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
 
@@ -350,6 +350,33 @@
         </div>
 
     </section>
+
+    <div id="modalUpload" class="modal fade modal-cadastro" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row upload">
+
+                        <div id="drop-area">
+                            <form id="upload_form" class="my-form" enctype="multipart/form-data">
+                                <p><b>Arraste e solte a imagem aqui, ou</b></p>
+                                <input name="upload" type="file" id="fileElem" accept="image/*" onchange="empresa.method.uploadLogo(this.files)">
+                                <label class="btn btn-sm btn-yellow" for="fileElem">Carregar Imagem</label>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
 
 
     <script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>

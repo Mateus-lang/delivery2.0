@@ -95,6 +95,50 @@ app.method = {
 
     },
 
+    // centraliza as chamadas de UPLOAD
+    upload: (url, dados, callbackSuccess, callbackError, login = false) => {
+
+        try {
+
+            if (app.method.validaToken(login)) {
+
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', url);
+                xhr.setRequestHeader("Mime-Type", "multipart/form-data");
+                xhr.setRequestHeader("Authorization", app.method.obterValorStorage('token'));
+
+                xhr.onreadystatechange = function () {
+                    
+                    if (this.readyState == 4) {
+
+                        if (this.status == 200) {
+                            return callbackSuccess(JSON.parse(xhr.responseText))
+                        }
+                        else {
+
+                            // se o retorno for não autorizado, redireciona o usuário para o login
+                            if (xhr.status == 401) {
+                                app.method.logout();
+                            }
+
+                            return callbackError(xhr.responseText);
+
+                        }
+
+                    }
+
+                }
+
+                xhr.send(dados);
+
+            }
+            
+        } catch (error) {
+            return callbackError(error)
+        }
+
+    },
+
     // método para validar se o token existe (local). É chamado em todas as requisições
     validaToken: (login = false) => {
 

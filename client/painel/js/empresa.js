@@ -5,6 +5,10 @@ document.addEventListener("DOMContentLoaded", function(event){
 var empresa = {};
 var DADOS_EMPRESA = {};
 
+var MODAL_UPLOAD = new bootstrap.Modal(document.getElementById('modalUpload'));
+
+var DROP_AREA = document.getElementById("drop-area");
+
 empresa.event = {
 
     init: () => {
@@ -20,6 +24,27 @@ empresa.event = {
 
         // inicia a primeira TAB
         empresa.method.openTab('sobre');
+
+        // inicializa o drag and drop da imagem 
+
+        // previne os comportamentos padroes do navegador
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            DROP_AREA.addEventListener(eventName, empresa.method.preventDefaults, false);
+            document.body.addEventListener(eventName, empresa.method.preventDefaults, false);
+        });
+
+        // evento quando passa o mouse em cima com a imagem segurada(hover)
+        ['dragenter', 'dragover'].forEach(eventName => {
+            DROP_AREA.addEventListener(eventName, empresa.method.highlight, false);
+        });
+
+        // evento quando sai o mouse de cima
+        ['dragleave', 'drop'].forEach(eventName => {
+            DROP_AREA.addEventListener(eventName, empresa.method.unhighlight, false);
+        });
+
+        // evento quando solta a imagem no container
+        DROP_AREA.addEventListener('drop', empresa.method.handleDrop, false);
 
     }
 
@@ -151,8 +176,81 @@ empresa.method = {
 
     },
 
+    // adiciona a nova logo da empresa
+    uploadLogo: (logoUpload= []) => {
+        MODAL_UPLOAD.hide();
+
+        var formData = new FormData();
+
+        if(logoUpload != undefined) {
+            formData.append('image', logoUpload[0])
+
+        }else{
+            formData.append('image', document.querySelector('#fileElem').files[0]);
+        }
+
+        app.method.loading(true);
+
+        app.method.upload('/image/logo/upload', formData,
+            (response) => {
+
+                app.method.loading(false);
+
+                if (response.status == "error") {
+                    app.method.mensagem(response.message);
+                    return;
+                }
+
+                app.method.mensagem(response.message, 'green');
+
+
+            },
+            (error) => {
+                console.log('error', error);
+                app.method.loading(false);
+
+            }
+        );
+    },
+
+    // remove o logo da empresa
+    removeLogo: () => {
+
+    },
+
+    // abre a modal de adicioanr logo
+    openModalLogo: () => {
+            MODAL_UPLOAD.show();
+    },
+
+    // drag and drop - previne os comportamentos padrões
+    preventDefaults: (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    },
+
+    // drag and drop - adiciona a classe 'highlight' quando entra com a imagem no container
+    highlight: (e) => {
+        if(!DROP_AREA.classList.contains('highlight')) {
+            DROP_AREA.classList.add('highlight');            
+        }
+    },
+
+    // drag and drop - adiciona a classe 'highlight' quando sai com a imagem no container
+    unhighlight: (e) => {
+        DROP_AREA.classList.remove('highlight');
+    },
+
+    // drag and drop - quando solta a imagem no container
+    handleDrop: (e) => {
+        var dt = e.dataTransfer;
+        var files = dt.files;
+
+        empresa.method.uploadLogo(files);
+    },
+
     obterHorarios: () => {
 
-    }
+    },
 
 }
