@@ -26,3 +26,13 @@ SET
 WHERE
     idempresa = @idempresa
 --END#salvarDadosSobre#
+
+--INIT#adicionarImagem#
+
+UPDATE
+    empresa
+SET
+    logotipo = @logotipo
+WHERE
+    idempresa = @idempresa
+--END#adicionarImagem#

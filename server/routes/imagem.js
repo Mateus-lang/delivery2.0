@@ -1,0 +1,13 @@
+const ct = require('../controllers/imagem');
+const UsuarioAcessoToken = require('../common/protecaoAcesso');
+const Acesso = new UsuarioAcessoToken();
+
+module.exports = (server) => {
+
+    // Faz o Upload do logotipo na pasta
+    server.post('/image/logo/upload', Acesso.verificaTokenAcesso, async (req, res) => {
+        const result = await ct.controllers().uploadLogo(req);
+        res.send(result);
+    })
+
+}

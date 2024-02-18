@@ -1,4 +1,6 @@
 const ct = require('../controllers/empresa');
+const UsuarioAcessoToken = require('../common/protecaoAcesso');
+const Acesso = new UsuarioAcessoToken();
 
 module.exports = (server) => {
 
@@ -10,7 +12,7 @@ module.exports = (server) => {
 
 
     // salva todas as informações da empresa na pagina "Sobre"
-    server.post('/empresa/sobre', async (req, res) => {
+    server.post('/empresa/sobre', Acesso.verificaTokenAcesso, async (req, res) => {
         const result = await ct.controllers().salvarDadosSobre(req);
         res.send(result);
     })
