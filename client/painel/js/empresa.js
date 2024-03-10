@@ -203,6 +203,11 @@ empresa.method = {
 
                 app.method.mensagem(response.message, 'green');
 
+                // atualiza o valor no localStorage
+                app.method.gravarValorStorage(response.logotipo, 'Logo');
+
+                empresa.method.obterDados();
+                app.method.carregarDadosEmpresa();
 
             },
             (error) => {
@@ -215,6 +220,39 @@ empresa.method = {
 
     // remove o logo da empresa
     removeLogo: () => {
+
+        var data = {
+            imagem: DADOS_EMPRESA.logotipo
+        }
+
+        app.method.loading(true);
+
+        app.method.post('/image/logo/remove', JSON.stringify(data),
+            (response) => {
+
+                console.log(response)
+                app.method.loading(false);
+
+                if (response.status == "error") {
+                    app.method.mensagem(response.message);
+                    return;
+                }
+
+                app.method.mensagem(response.message, 'green');
+
+                // remover o valor no localStorage
+                app.method.removerSessao('Logo');
+
+                empresa.method.obterDados();
+                app.method.carregarDadosEmpresa();
+
+            },
+            (error) => {
+                console.log('error', error);
+                app.method.loading(false);
+
+            }
+        );
 
     },
 

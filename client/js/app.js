@@ -163,6 +163,12 @@ app.method = {
         return localStorage[local];
     },
 
+    // remove sessao
+    removerSessao: (local) => {
+        localStorage.removeItem(local);
+    },
+
+
     // método que limpa todo o localstorage e redireciona pro login
     logout: () =>{
         localStorage.clear();

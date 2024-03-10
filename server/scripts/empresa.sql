@@ -36,3 +36,13 @@ SET
 WHERE
     idempresa = @idempresa
 --END#adicionarImagem#
+
+--INIT#removerImagem#
+
+UPDATE
+    empresa
+SET
+    logotipo = NULL
+WHERE
+    idempresa = @idempresa
+--END#removerImagem#

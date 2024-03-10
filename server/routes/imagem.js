@@ -10,4 +10,10 @@ module.exports = (server) => {
         res.send(result);
     })
 
+    // Remove o logotipo na pasta
+    server.post('/image/logo/remove', Acesso.verificaTokenAcesso, async (req, res) => {
+        const result = await ct.controllers().removeLogo(req);
+        res.send(result);
+    })
+
 }

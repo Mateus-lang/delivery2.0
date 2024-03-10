@@ -57,8 +57,43 @@ const controllers = () => {
 
     };
 
+    // Remove o logotipo da empresa
+    const removeLogo = async (req) => {
+
+        try {
+            
+            // obtem o id da empresa logada
+            let _empresaId = Acesso.retornaCodigoTokenAcesso('IdEmpresa', req);
+
+            const imagem = req.body.imagem;
+
+            var filePath = `server/public/images/empresa/${imagem}`;
+
+            fs.unlinkSync(filePath);
+
+            var ComandoSql = await readCommandSql.retornaStringSql('removerImagem', 'empresa');
+            await db.Query(ComandoSql, { idempresa: _empresaId });
+
+
+            return {
+                status: 'success',
+                message: 'Imagem removida com sucesso!',
+                
+            }
+
+        } catch (error) {
+            console.log(error);
+            return {
+                status: 'error',
+                message: 'Falha ao remover imagem, tente novamente.'
+            }
+        }        
+
+    };
+
     return Object.create ({
-        uploadLogo
+        uploadLogo,
+        removeLogo
     })
 
 }
