@@ -115,6 +115,15 @@ empresa.method = {
 
 
                 // carrega a TAB endereço
+                document.getElementById("txtCEP").value = empresa.cep;
+                document.getElementById("txtEndereco").value = empresa.endereco;
+                document.getElementById("txtBairro").value = empresa.bairro;
+                document.getElementById("txtNumero").value = empresa.numero;
+                document.getElementById("txtCidade").value = empresa.cidade;
+                document.getElementById("txtComplemento").value = empresa.complemento;
+                document.getElementById("ddlUf").value = empresa.estado;
+
+
 
             },
             (error) => {
@@ -285,6 +294,11 @@ empresa.method = {
         var files = dt.files;
 
         empresa.method.uploadLogo(files);
+    },
+
+    // salva os dados de endereço
+    salvarDadosEndereco: () => {
+
     },
 
     obterHorarios: () => {
