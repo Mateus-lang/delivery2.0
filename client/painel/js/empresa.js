@@ -437,7 +437,29 @@ empresa.method = {
         
     },
 
+
+    // Obtem os horarios da empresa
     obterHorarios: () => {
+        app.method.get('/empresa/horario',
+            (response) => {
+
+                console.log(response)
+                if (response.status == "error") {
+                    app.method.mensagem(response.message);
+                    return;
+                }
+
+                empresa.method.carregarHorarios(response.data);
+
+            },
+            (error) => {
+                console.log('error', error)
+            }
+        );
+    },
+
+    // carrega horarios na tela
+    carregarHorarios: (lista) => {
 
     },
 
