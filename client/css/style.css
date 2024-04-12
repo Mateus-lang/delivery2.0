@@ -41,6 +41,19 @@ b {
     display: none !important;
 }
 
+.loader-full{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 9999;
+    background-color: rgb(255 253 247 / 95%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .pr-0{
     padding-right: 0px!important;
 }
@@ -52,6 +65,31 @@ b {
     right: 0px;
     height: 110px;
     background-color: var(--color-secondary);
+}
+
+.container-mensagens{
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    z-index: 9999;
+}
+
+.toast {
+    opacity: 1!important;
+    width: auto!important;
+    color: white;
+    padding: 10px 25px;
+    font-size: 16px;
+    border-radius: 15px!important;
+    margin-bottom: 10px;
+}
+
+.toast.red {
+    background-color: var(--color-red);
+}
+
+.toast.green {
+    background-color: var(--color-green);
 }
 
 .width-fix {
