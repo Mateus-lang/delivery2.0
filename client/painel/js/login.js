@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 
 var login = {};
 
-login.event = {
+login.event = { 
 
     init: () => {
         document.querySelector("#btnLogin").onclick = () => {
